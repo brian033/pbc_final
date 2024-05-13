@@ -12,6 +12,8 @@ class User:
 
     @staticmethod
     def transform_mbti(mbti):
+        # 將mbti轉換成向量
+        # 注意要處理例外狀況(空格之類的)
         if type(mbti) == list:
             print(mbti)
             return [1, 1, 1, 1]
@@ -20,35 +22,43 @@ class User:
 
     @staticmethod
     def transform_freq(freq_str):
+        # 將約會頻率轉換成-1~1的數字
         d = {"1~2次": -1, "3~5次": 0, "6次以上": 1}
+        return d[freq_str]
 
     @staticmethod
     def transform_loyalty(loyalty_str):
+        # 透過傳進來的字串, 轉換成-1~1的忠誠度數字
         # TODO
         return -1
 
     @staticmethod
     def transform_responsibility(responsibility_str):
+        # 透過傳進來的字串, 轉換成-1~1的責任感數字
         # TODO
         return -1
 
     @staticmethod
     def transform_humor(humor_str):
+        # 透過傳進來的字串, 轉換成-1~1的幽默感數字
         # TODO
         return -1
 
     @staticmethod
     def transform_eq(eq_str):
+        # 透過傳進來的字串, 轉換成-1~1的情商數字
         # TODO
         return -1
 
     @staticmethod
     def transform_curiosity(curiosity_str):
+        # 透過傳進來的字串, 轉換成-1~1的好奇心數字
         # TODO
         return -1
 
     @staticmethod
     def transform_values(values):
+        # 透過表單回傳的五個數字, 轉換成-1~1的五個價值觀數字
         # TODO
         return [0, 0, 0, 0, 0]
 
@@ -76,6 +86,7 @@ class User:
         self.email = data[23]
 
     def get_user_info(self):
+        # 回傳這個user的基本資料
         return {
             "name": self.name,
             "introduction": self.introduction,
@@ -83,19 +94,22 @@ class User:
         }
 
     def get_user_self_vector(self):
+        # 回傳這個user的自我向量
         return [
             self.self_mbti[0], self.self_mbti[1], self.self_mbti[2], self.self_mbti[
                 3], self.self_freq, self.self_loyalty, self.self_responsibility, self.self_humor, self.self_eq, self.self_curiosity
         ]
 
     def get_user_expect_vector(self):
+        # 回傳這個user的期望向量
         return [
             self.expect_mbti[0], self.expect_mbti[1], self.expect_mbti[2], self.expect_mbti[3], self.expect_freq, self.expect_values[
                 0], self.expect_values[1], self.expect_values[2], self.expect_values[3], self.expect_values[4]
         ]
 
     def check_matchable(self, other):
-        # 1. 看性向有沒有和
+        # 確認這個user和另一個user是否在硬性條件上合得來
+        # 1. 看性向有沒有合
         # 我喜歡的有沒有和對方的性別相符
         if (self.expect_gender != "BOTH" and self.expect_gender != other.self_gender):
             return False
