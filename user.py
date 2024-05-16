@@ -1,3 +1,6 @@
+import random
+
+
 class User:
     @staticmethod
     def transform_gender(gender_str):
@@ -15,7 +18,6 @@ class User:
         # 將mbti轉換成向量
         # 注意要處理例外狀況(空格之類的)
         if type(mbti) == list:
-            print(mbti)
             return [1, 1, 1, 1]
         else:
             return [-1, -1, -1, -1]
@@ -62,7 +64,7 @@ class User:
         # TODO
         return [0, 0, 0, 0, 0]
 
-    def __init__(self, data):
+    def __init__(self, data, id):
         # 透過傳入的資料建立User物件
         # 並且透過data來call各種get_xxx_value() 來取得這個user的各種值(例如愛情觀 價值觀等等)
         self.self_gender = User.transform_gender(data[1])
@@ -84,6 +86,14 @@ class User:
         self.name = data[21]
         self.introduction = data[22]
         self.email = data[23]
+        self.id = id
+
+        # for testing
+        # generate a random vector of length 10 with values between -1 and 1
+        self.self_vector_mock = [
+            random.uniform(-1, 1) for x in range(10)]
+        self.expect_vector_mock = [
+            random.uniform(-1, 1) for x in range(10)]
 
     def get_user_info(self):
         # 回傳這個user的基本資料
@@ -94,29 +104,24 @@ class User:
         }
 
     def get_user_self_vector(self):
+        return self.self_vector_mock
         # 回傳這個user的自我向量
-        return [
-            self.self_mbti[0], self.self_mbti[1], self.self_mbti[2], self.self_mbti[
-                3], self.self_freq, self.self_loyalty, self.self_responsibility, self.self_humor, self.self_eq, self.self_curiosity
-        ]
+        # return [
+        #     self.self_mbti[0], self.self_mbti[1], self.self_mbti[2], self.self_mbti[
+        #         3], self.self_freq, self.self_loyalty, self.self_responsibility, self.self_humor, self.self_eq, self.self_curiosity
+        # ]
 
     def get_user_expect_vector(self):
+        return self.expect_vector_mock
         # 回傳這個user的期望向量
-        return [
-            self.expect_mbti[0], self.expect_mbti[1], self.expect_mbti[2], self.expect_mbti[3], self.expect_freq, self.expect_values[
-                0], self.expect_values[1], self.expect_values[2], self.expect_values[3], self.expect_values[4]
-        ]
+        # return [
+        #     self.expect_mbti[0], self.expect_mbti[1], self.expect_mbti[2], self.expect_mbti[3], self.expect_freq, self.expect_values[
+        #         0], self.expect_values[1], self.expect_values[2], self.expect_values[3], self.expect_values[4]
+        # ]
+
+    @staticmethod
+    def calculate_distance(vector1, vector2):
+        return sum((a - b)**2 for a, b in zip(vector1, vector2))
 
     def check_matchable(self, other):
-        # 確認這個user和另一個user是否在硬性條件上合得來
-        # 1. 看性向有沒有合
-        # 我喜歡的有沒有和對方的性別相符
-        if (self.expect_gender != "BOTH" and self.expect_gender != other.self_gender):
-            return False
-        if (other.expect_gender != "BOTH" and other.expect_gender != self.self_gender):
-            return False
-        # 2. 看年齡有沒有和
-        DIFF_THRESH = 3
-        if (abs(self.expect_age - other.self_age) > DIFF_THRESH):
-            return False
         return True
