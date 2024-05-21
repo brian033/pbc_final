@@ -33,14 +33,17 @@ for i in range(len(compatibleLst)):
         "introduction": userInfo["introduction"],
         "email":  userInfo["email"],
         "id_first": compatibleLst[i][0][0],
+        "score_first": compatibleLst[i][0][1],  # "score_first": "0.1
         "name_first": first.get_user_info()["name"],
         "intro_first": first.get_user_info()["introduction"],
         "email_first": first.get_user_info()["email"],
         "id_second": compatibleLst[i][1][0],
+        "score_second": compatibleLst[i][1][1],  # "score_second": "0.2
         "name_second": second.get_user_info()["name"],
         "intro_second": second.get_user_info()["introduction"],
         "email_second": second.get_user_info()["email"],
         "id_third": compatibleLst[i][2][0],  # "id_third": "2
+        "score_third": compatibleLst[i][2][1],  # "score_third": "0.3
         "name_third": third.get_user_info()["name"],
         "intro_third": third.get_user_info()["introduction"],
         "email_third": third.get_user_info()["email"]
