@@ -32,7 +32,7 @@ class User:
             # S/N
             # T/F
             # J/P
-            s = mbti.to_upper()
+            s = mbti.upper()
             res = []
             if s[0] == 'E':
                 res.append(1)
@@ -377,7 +377,7 @@ class User:
     def transform_expected_age(age_str):
         matched = list()
         for age in range(10, 100):
-            if (str(age) in age_str):
+            if (str(age) in str(age_str)):
                 matched.append(age)
         matched.sort()
         # fill in the missing age between the biggest and the smallest, for example 12, 15 => fill in 13 14
