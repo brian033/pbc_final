@@ -448,7 +448,7 @@ class User:
         return sum((a - b)**2 for a, b in zip(vector1, vector2))
 
     def check_matchable(self, other):
-        return True
+        # return True
         # 1. 性向相符
         if self.expect_gender != 'BOTH' and other.self_gender != self.expect_gender:
             return False
